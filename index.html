@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simular Ventana Sin Barra de Direcciones</title>
+    <title>Simular Nueva Pestaña</title>
     <style>
         body, html {
             height: 100%;
@@ -13,39 +13,6 @@
             align-items: center;
             justify-content: center;
             background-color: #000;
-            overflow: hidden; /* Evita el scroll */
-        }
-        .window-frame {
-            position: relative;
-            width: 80%;
-            height: 80%;
-            border: 2px solid #333;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        .fake-header {
-            background-color: #444;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-            font-family: Arial, sans-serif;
-            font-size: 16px;
-        }
-        .close-button {
-            position: absolute;
-            top: 5px;
-            right: 10px;
-            background-color: #ff5c5c;
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-        iframe {
-            width: 100%;
-            height: calc(100% - 40px); /* Resta la altura de la cabecera falsa */
-            border: none;
         }
         .button-container {
             position: absolute;
@@ -72,23 +39,21 @@
 </head>
 <body>
     <div class="button-container">
-        <button onclick="loadPage('https://tele-libre.com/en-vivo-online/europa-europa/embed.php')">Mostrar Página 1</button>
-        <button onclick="loadPage('https://rcv.mitele.uno/extension.php?get=UGFyYW1vdW50&start=true')">Mostrar Página 2</button>
-        <button onclick="loadPage('https://fullchannels.online/html/cvatt2.html?get=U3BhY2U=')">Mostrar Página 3</button>
-        <button onclick="loadPage('https://a3.115tv.site/cvatt2.html?get=VE5UX0hEX0FyZw')">Mostrar Página 4</button>
-    </div>
-
-    <div class="window-frame">
-        <div class="fake-header">
-            <div class="close-button"></div>
-            Simulador de Ventana
-        </div>
-        <iframe id="contentFrame" src=""></iframe>
+        <button onclick="openWindow('https://tele-libre.com/en-vivo-online/europa-europa/embed.php')">Mostrar Página 1</button>
+        <button onclick="openWindow('https://rcv.mitele.uno/extension.php?get=UGFyYW1vdW50&start=true')">Mostrar Página 2</button>
+        <button onclick="openWindow('https://fullchannels.online/html/cvatt2.html?get=U3BhY2U=')">Mostrar Página 3</button>
+        <button onclick="openWindow('https://a3.115tv.site/cvatt2.html?get=VE5UX0hEX0FyZw')">Mostrar Página 4</button>
     </div>
 
     <script>
-        function loadPage(url) {
-            document.getElementById('contentFrame').src = url;
+        function openWindow(url) {
+            // Abrir una ventana emergente simulando una nueva pestaña
+            const newWindow = window.open(url, '_blank', 'width=1200,height=800,top=50,left=50,toolbar=no,menubar=no,scrollbars=yes,status=no');
+            
+            // Verificar si la ventana emergente fue bloqueada
+            if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') { 
+                alert('La ventana emergente fue bloqueada. Por favor, habilita las ventanas emergentes para continuar.');
+            }
         }
     </script>
 </body>
