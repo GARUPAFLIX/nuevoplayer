@@ -1,28 +1,50 @@
 <!doctype html>
-<html lang="es">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simular Nueva Pestaña</title>
+    <title>Reproductor M3U8 con Selección de Canales</title>
+    <link href="https://vjs.zencdn.net/7.15.4/video-js.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/videojs-http-source-selector@latest/dist/videojs-http-source-selector.css" rel="stylesheet">
     <style>
         body, html {
             height: 100%;
             margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #000;
+            overflow: hidden;
+            background: #000;
         }
-        .button-container {
+
+        .video-container {
             position: absolute;
+            top: 0;
+            right: 0;
+            width: 70vw;
+            height: 100vh;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .channel-buttons {
+            position: fixed;
             top: 10px;
             left: 10px;
-            z-index: 10;
             display: flex;
             flex-direction: column;
+            z-index: 10;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 5px;
+            padding: 10px;
         }
-        .button-container button {
+
+        .channel-buttons button {
             background-color: #333;
             color: #fff;
             border: none;
@@ -32,29 +54,32 @@
             border-radius: 5px;
             font-size: 14px;
         }
-        .button-container button:hover {
+
+        .channel-buttons button:hover {
             background-color: #555;
         }
     </style>
 </head>
 <body>
-    <div class="button-container">
-        <button onclick="openWindow('https://tele-libre.com/en-vivo-online/europa-europa/embed.php')">Mostrar Página 1</button>
-        <button onclick="openWindow('https://rcv.mitele.uno/extension.php?get=UGFyYW1vdW50&start=true')">Mostrar Página 2</button>
-        <button onclick="openWindow('https://fullchannels.online/html/cvatt2.html?get=U3BhY2U=')">Mostrar Página 3</button>
-        <button onclick="openWindow('https://a3.115tv.site/cvatt2.html?get=VE5UX0hEX0FyZw')">Mostrar Página 4</button>
+    <div class="channel-buttons">
+        <button onclick="changeChannel('https://stream.ads.ottera.tv/playlist.m3u8?network_id=653')">Canal 1</button>
+        <button onclick="changeChannel('https://stream.ads.ottera.tv/playlist.m3u8?network_id=654')">Canal 2</button>
+        <button onclick="changeChannel('https://stream.ads.ottera.tv/playlist.m3u8?network_id=2548')">Canal 3</button>
+        <button onclick="changeChannel('proxy.php')">Canal 4</button> <!-- Aquí usamos el proxy PHP -->
+    </div>
+
+    <div class="video-container">
+        <iframe id="video-frame" src="" frameborder="0"></iframe>
     </div>
 
     <script>
-        function openWindow(url) {
-            // Abrir una ventana emergente simulando una nueva pestaña
-            const newWindow = window.open(url, '_blank', 'width=1200,height=800,top=50,left=50,toolbar=no,menubar=no,scrollbars=yes,status=no');
-            
-            // Verificar si la ventana emergente fue bloqueada
-            if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') { 
-                alert('La ventana emergente fue bloqueada. Por favor, habilita las ventanas emergentes para continuar.');
-            }
+        function changeChannel(url) {
+            document.getElementById('video-frame').src = url;
         }
+    </script>
+</body>
+</html>
+
     </script>
 </body>
 </html>
